@@ -1,17 +1,16 @@
 const title = prompt("Как называется ваш проект?");;
 const screens = prompt("Какие типы экранов нужно разработать?", "Простые, Сложные, Интерактивные");
-const adaptive = (Boolean)(prompt("Нужен ли адаптив на сайте?"));
-const screenPrice = (Number)(prompt("Сколько будет стоить данная работа?"));;
-
+const screenPrice = +prompt("Сколько будет стоить данная работа?");
+const adaptive = confirm("Нужен ли адаптив на сайте?");
+const rollback = Math.floor(Math.random() * 100) + 1;
 
 let service1 = 0;
 let service2 = 0;
 let servicePrice1 = 0;
 let servicePrice2 = 0;
-
 let fullPrice = 0;
-const rollback = Math.floor(Math.random() * 100) + 1;
-const servicePercentPrice = Math.floor(fullPrice - rollback);
+let servicePercentPrice = 0;
+
 
 function getType(objArray) {
 
@@ -23,8 +22,9 @@ function getType(objArray) {
 
 function getFullPrice() {
 
-    fullPrice = parseInt(screenPrice) + parseInt(servicePrice1) + parseInt(servicePrice2);
-
+    fullPrice = screenPrice + servicePrice1 + servicePrice2;
+    servicePercentPrice = Math.floor(fullPrice - rollback);
+    
     if (fullPrice > 30000) {
 
         console.log("Даем скидку в 10%");
@@ -47,15 +47,15 @@ function serviceQuestion() {
 
     for (let i = 0; i < 2; i++) {
 
-        if ( i === 0) {
+        if (i === 0) {
 
             service1 = prompt('Какой дополнительный тип услуги нужен?');
-            servicePrice1 = prompt ('Сколько это будет стоить?'); 
+            servicePrice1 = +prompt('Сколько это будет стоить?'); 
         }
-        if ( i === 1) {
+        if (i === 1) {
 
             service2 = prompt('Какой дополнительный тип услуги нужен?');
-            servicePrice2 = prompt ('Сколько это будет стоить?'); 
+            servicePrice2 = +prompt('Сколько это будет стоить?'); 
         }
     }
 }
@@ -65,7 +65,7 @@ serviceQuestion();
 getFullPrice();
 
 console.log('Стоимость за вычетом посреднеческих услуг: ', servicePercentPrice);
-console.log(screens.length);
+console.log(...screens.split(', '));
 console.log(`Стоимость верстки экранов ${screenPrice} рублей/ долларов/гривен/юани” и “Стоимость разработки сайта ${fullPrice} рублей/ долларов/гривен/юани`);
 console.log(screens.toLowerCase().split());
 console.log(fullPrice * (rollback / 100));
