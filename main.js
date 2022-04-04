@@ -23,27 +23,6 @@ function getType(objArray) {
 function getFullPrice(nextFunc) {
 
     fullPrice = screenPrice + servicePrice1 + servicePrice2;
-    
-    if (fullPrice > 30000) {
-
-        console.log("Даем скидку в 10%");
-    }
-    else if (fullPrice > 15000 && fullPrice < 30000) {
-
-        console.log("Даем скидку в 5%");
-    }
-    else if (fullPrice < 15000 && fullPrice > 0 ) {
-
-        console.log("Скидка не предусмотрена");
-    }
-    else if (fullPrice === 0 || fullPrice === 15000 || fullPrice === 30000 ) {
-
-        console.log("Скидка не предусмотрена");
-    }
-    else if (fullPrice < 0) {
-        
-        console.log("Что-то пошло не так");
-    }
 
     nextFunc();
 }
@@ -73,6 +52,24 @@ function getServicePercentPrice() {
 getType([title, fullPrice, adaptive]);
 serviceQuestion();
 getFullPrice(getServicePercentPrice);
+
+
+if (fullPrice > 30000) {
+
+    console.log("Даем скидку в 10%");
+}
+else if (fullPrice >= 15000 && fullPrice <= 30000) {
+
+    console.log("Даем скидку в 5%");
+}
+else if (fullPrice < 15000 && fullPrice > 0 ) {
+
+    console.log("Скидка не предусмотрена");
+}
+else if (fullPrice < 0) {
+    
+    console.log("Что-то пошло не так");
+}
 
 console.log('Стоимость за вычетом посреднеческих услуг: ', servicePercentPrice);
 console.log(...screens.split(', '));
