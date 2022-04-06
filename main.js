@@ -12,7 +12,7 @@ let fullPrice = 0;
 let servicePercentPrice = 0;
 
 
-function getType(objArray) {
+function showTypeOf(objArray) {
 
     for (let i = 0; i < objArray.length; i++) {
 
@@ -20,11 +20,43 @@ function getType(objArray) {
     }
 }
 
+function getTitle() {
+
+    const titleTrimmed = title.trim().split("");
+
+    return titleTrimmed[0].toUpperCase().concat(...titleTrimmed.splice(1, titleTrimmed.length - 1)).toString();
+}
+
 function getFullPrice(nextFunc) {
 
-    fullPrice = screenPrice + servicePrice1 + servicePrice2;
+    fullPrice = screenPrice + allServicePrices();
 
     nextFunc();
+}
+
+function getRollbackMessage() {
+
+    if (fullPrice > 30000) {
+
+        console.log("Даем скидку в 10%");
+    }
+    else if (fullPrice >= 15000 && fullPrice <= 30000) {
+    
+        console.log("Даем скидку в 5%");
+    }
+    else if (fullPrice < 15000 && fullPrice > 0 ) {
+    
+        console.log("Скидка не предусмотрена");
+    }
+    else if (fullPrice < 0) {
+        
+        console.log("Что-то пошло не так");
+    }
+}
+
+let allServicePrices = function getAllServicePrices() {
+
+    return servicePrice1 + servicePrice2;
 }
 
 function serviceQuestion() {
@@ -44,34 +76,17 @@ function serviceQuestion() {
     }
 }
 
-function getServicePercentPrice() {
+servicePercentPrice = function getServicePercentPrice() {
 
-    servicePercentPrice = Math.floor(fullPrice - rollback);
+    return Math.floor(fullPrice - rollback);
 }
 
-getType([title, fullPrice, adaptive]);
+showTypeOf([title, fullPrice, adaptive]);
 serviceQuestion();
-getFullPrice(getServicePercentPrice);
+getFullPrice(servicePercentPrice);
+getRollbackMessage();
 
-
-if (fullPrice > 30000) {
-
-    console.log("Даем скидку в 10%");
-}
-else if (fullPrice >= 15000 && fullPrice <= 30000) {
-
-    console.log("Даем скидку в 5%");
-}
-else if (fullPrice < 15000 && fullPrice > 0 ) {
-
-    console.log("Скидка не предусмотрена");
-}
-else if (fullPrice < 0) {
-    
-    console.log("Что-то пошло не так");
-}
-
-console.log('Стоимость за вычетом посреднеческих услуг: ', servicePercentPrice);
+console.log('Стоимость за вычетом посреднеческих услуг: ', servicePercentPrice());
 console.log(...screens.split(', '));
 console.log(`Стоимость верстки экранов ${screenPrice} рублей/ долларов/гривен/юани” и “Стоимость разработки сайта ${fullPrice} рублей/ долларов/гривен/юани`);
 console.log(screens.toLowerCase().split());
