@@ -29,7 +29,7 @@ function getTitle() {
 
 function getFullPrice(nextFunc) {
 
-    fullPrice = screenPrice + allServicePrices();
+    fullPrice = screenPrice + getAllServicePrices();
 
     nextFunc();
 }
@@ -54,9 +54,10 @@ function getRollbackMessage() {
     }
 }
 
-let allServicePrices = function getAllServicePrices() {
+const getAllServicePrices = function () {
 
-    return servicePrice1 + servicePrice2;
+    const allServicePrices = servicePrice1 + servicePrice2;
+    return allServicePrices;
 }
 
 function serviceQuestion() {
@@ -76,17 +77,18 @@ function serviceQuestion() {
     }
 }
 
-servicePercentPrice = function getServicePercentPrice() {
+const getServicePercentPrice = function () {
 
-    return Math.floor(fullPrice - rollback);
+    servicePercentPrice = Math.floor(fullPrice - rollback);
+    return servicePercentPrice;
 }
 
 showTypeOf([title, fullPrice, adaptive]);
 serviceQuestion();
-getFullPrice(servicePercentPrice);
+getFullPrice(getServicePercentPrice);
 getRollbackMessage();
 
-console.log('Стоимость за вычетом посреднеческих услуг: ', servicePercentPrice());
+console.log('Стоимость за вычетом посреднеческих услуг: ', getServicePercentPrice());
 console.log(...screens.split(', '));
 console.log(`Стоимость верстки экранов ${screenPrice} рублей/ долларов/гривен/юани” и “Стоимость разработки сайта ${fullPrice} рублей/ долларов/гривен/юани`);
 console.log(screens.toLowerCase().split());
